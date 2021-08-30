@@ -2,3 +2,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .button {
+    @apply inline-block text-xs font-bold text-center uppercase border rounded;
+  }
+  .button.blue {
+    @apply text-white bg-blue-500 border-blue-500 hover:bg-blue-300 hover:border-blue-300 disabled:bg-blue-300 disabled:border-blue-300;
+  }
+  .button.blue.hollow {
+    @apply text-blue-500 bg-transparent border-blue-500;
+  }
+
+  .auth-field {
+    @apply relative flex flex-col;
+  }
+
+  .auth-field:hover label,
+  .auth-field .filled {
+    @apply transform translate-y-1 scale-75;
+  }
+
+  .auth-field:focus-within input {
+    @apply border-blue-500;
+  }
+
+  .auth-field:focus-within label {
+    @apply transform translate-y-1 scale-75 text-blue-500;
+  }
+}

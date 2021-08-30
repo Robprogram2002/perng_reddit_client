@@ -1,11 +1,66 @@
 module.exports = {
   purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: 'class',
   theme: {
-    extend: {},
+    screens: {
+      sm: '480px',
+      md: '768px',
+      lg: '976px',
+      xl: '1440px',
+    },
+    fontFamily: {
+      body: ['IBM Plex Sans'],
+      display: ['Oswald'],
+      bodyVariant: ['"Open Sans"'],
+    },
+    extend: {
+      colors: {
+        blue: {
+          100: '#cce4f6',
+          200: '#99c9ed',
+          300: '#66afe5',
+          400: '#3394dc',
+          500: '#0079d3',
+          600: '#0061a9',
+          700: '#00497f',
+          800: '#003054',
+          900: '#00182a',
+        },
+        gray: {
+          blue: '#DAE0E6',
+        },
+      },
+      spacing: {
+        70: '17.5rem',
+        160: '40rem',
+      },
+      container: false,
+      transitionTimingFunction: {
+        'in-expo': 'cubic-bezier(0.95, 0.05, 0.795, 0.035)',
+        'out-label': 'cubic-bezier(0, 0, 0.2, 1)',
+      },
+    },
   },
   variants: {
-    extend: {},
+    extend: {
+      backgroundColor: ['disabled'],
+      borderColor: ['disabled'],
+      opacity: ['disabled'],
+      cursor: ['disabled'],
+    },
   },
-  plugins: [],
+  plugins: [
+    ({ addComponents }) => {
+      addComponents({
+        '.container': {
+          width: '100%',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          '@screen sm': { maxWidth: '640px' },
+          '@screen md': { maxWidth: '768px' },
+          '@screen lg': { maxWidth: '975px' },
+        },
+      });
+    },
+  ],
 };
