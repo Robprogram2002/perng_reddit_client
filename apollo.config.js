@@ -4,6 +4,9 @@ module.exports = {
       name: 'server-api-schema',
       localSchemaFile: './schema.graphql',
     },
-    includes: ['./components/**/*.{ts,tsx,js,jsx,graphql}'],
+    includes: [
+      './components/**/*.{ts,tsx,js,jsx,graphql}',
+      './pages/**/*.{ts,tsx,js,jsx,graphql}',
+    ],
   },
 };

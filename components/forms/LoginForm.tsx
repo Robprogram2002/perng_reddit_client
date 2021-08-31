@@ -2,11 +2,11 @@ import { gql, useMutation } from '@apollo/client';
 import SubmitButton from '@components/UI/Buttons/SubmitButton';
 import { authContext, authFunctContext } from '@context/AuthContext';
 import { Form, Formik } from 'formik';
+import { LoginUser, LoginUserVariables } from 'graphql-types/LoginUser';
 import { useRouter } from 'next/dist/client/router';
 import { useContext } from 'react';
 import * as Yup from 'yup';
 import AuthInput from './fields/AuthInput';
-import { LoginUser, LoginUserVariables } from './graphql-types/LoginUser';
 
 export const loginSchema = Yup.object({
   username: Yup.string()

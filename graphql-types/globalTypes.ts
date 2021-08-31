@@ -19,6 +19,17 @@ export interface RegisterInput {
   confirmPassword: string;
 }
 
+export interface ResetPasswordInput {
+  password: string;
+  token: string;
+  confirmPassword: string;
+}
+
+export interface SendEmailInput {
+  username: string;
+  email: string;
+}
+
 //==============================================================
 // END Enums and Input Objects
 //==============================================================

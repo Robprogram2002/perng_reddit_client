@@ -6,7 +6,7 @@ interface IUser {
   username: string;
   email: string;
   avatarUrl: string;
-  bannerUrl: string;
+  bannerUrl: string | null;
 }
 
 interface IAuthContext extends IUser {

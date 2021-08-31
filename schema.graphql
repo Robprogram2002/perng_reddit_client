@@ -17,7 +17,7 @@ type User {
   """
   url of the user banner/background image
   """
-  bannerUrl: String!
+  bannerUrl: String
 
   """
   user email
@@ -30,6 +30,8 @@ type Mutation {
   signIn(input: LocalSignInInput!): RegisterResponse!
   firebaseLogin(token: String!): RegisterResponse!
   register(input: RegisterInput!): RegisterResponse!
+  sendEmail(input: SendEmailInput!): BaseResponse!
+  resetPassword(input: ResetPasswordInput!): BaseResponse!
 }
 
 type BaseResponse {
@@ -80,5 +82,16 @@ input RegisterInput {
   username: String!
   email: String!
   password: String!
+  confirmPassword: String!
+}
+
+input SendEmailInput {
+  username: String!
+  email: String!
+}
+
+input ResetPasswordInput {
+  password: String!
+  token: String!
   confirmPassword: String!
 }

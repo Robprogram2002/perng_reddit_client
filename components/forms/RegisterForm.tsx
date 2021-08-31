@@ -4,11 +4,11 @@ import { Form, Formik } from 'formik';
 import { Dispatch, SetStateAction } from 'react';
 import * as Yup from 'yup';
 import { useRouter } from 'next/dist/client/router';
-import AuthInput from './fields/AuthInput';
 import {
   RegisterUser,
   RegisterUserVariables,
-} from './graphql-types/RegisterUser';
+} from 'graphql-types/RegisterUser';
+import AuthInput from './fields/AuthInput';
 
 export const registerSchema = Yup.object({
   email: Yup.string().required().email('field must be a valid email address'),

@@ -3,14 +3,12 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { RegisterInput } from './../../../graphql-types/globalTypes';
-
 // ====================================================
-// GraphQL mutation operation: RegisterUser
+// GraphQL mutation operation: VerifyEmail
 // ====================================================
 
-export interface RegisterUser_register {
-  __typename: 'RegisterResponse';
+export interface VerifyEmail_verifyEmail {
+  __typename: 'BaseResponse';
   /**
    * Similar to HTTP status code, represents the status of the mutation
    */
@@ -25,10 +23,10 @@ export interface RegisterUser_register {
   message: string;
 }
 
-export interface RegisterUser {
-  register: RegisterUser_register;
+export interface VerifyEmail {
+  verifyEmail: VerifyEmail_verifyEmail;
 }
 
-export interface RegisterUserVariables {
-  registerInput: RegisterInput;
+export interface VerifyEmailVariables {
+  token: string;
 }

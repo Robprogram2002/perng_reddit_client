@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { LocalSignInInput } from './../../../graphql-types/globalTypes';
+import { LocalSignInInput } from './globalTypes';
 
 // ====================================================
 // GraphQL mutation operation: LoginUser
@@ -23,8 +23,10 @@ export interface LoginUser_signIn_user {
    * url of the user avatar image
    */
   avatarUrl: string;
-
-  bannerUrl: string;
+  /**
+   * url of the user banner/background image
+   */
+  bannerUrl: string | null;
 }
 
 export interface LoginUser_signIn {

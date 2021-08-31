@@ -4,9 +4,9 @@ import ButtonIcon from '@components/UI/Buttons/ButtonIcon';
 import TextLink from '@components/UI/Links/TextLink';
 import AuhtFormHead from '@components/UI/Other/AuhtFormHead';
 import FormDivider from '@components/UI/Other/FormDivider';
-import { FiArrowLeftCircle } from 'react-icons/fi';
 import Head from 'next/head';
 import { BiAccessibility } from 'react-icons/bi';
+import BackButton from '@components/UI/Buttons/BackButton';
 
 const RegisterPage = () => {
   const [phase, setPhase] = useState(1);
@@ -54,12 +54,7 @@ const RegisterPage = () => {
             </TextLink>
           </div>
 
-          {phase === 2 && (
-            <div className="absolute bottom-6 left-8 flex items-center cursor-pointer">
-              <FiArrowLeftCircle size={30} onClick={() => setPhase(1)} />
-              <span className="px-2"> Back </span>
-            </div>
-          )}
+          {phase === 2 && <BackButton clickHandler={() => setPhase(1)} />}
         </div>
       </div>
     </>
