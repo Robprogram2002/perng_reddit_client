@@ -1,0 +1,84 @@
+type Query {
+  me: User
+  hello: String!
+}
+
+type User {
+  """
+  name of the user instance
+  """
+  username: String!
+
+  """
+  url of the user avatar image
+  """
+  avatarUrl: String!
+
+  """
+  url of the user banner/background image
+  """
+  bannerUrl: String!
+
+  """
+  user email
+  """
+  email: String!
+}
+
+type Mutation {
+  verifyEmail(token: String!): BaseResponse!
+  signIn(input: LocalSignInInput!): RegisterResponse!
+  firebaseLogin(token: String!): RegisterResponse!
+  register(input: RegisterInput!): RegisterResponse!
+}
+
+type BaseResponse {
+  """
+  Similar to HTTP status code, represents the status of the mutation
+  """
+  code: Int!
+
+  """
+  Indicates whether the mutation was successful
+  """
+  success: Boolean!
+
+  """
+  Human-readable message for the UI
+  """
+  message: String!
+}
+
+type RegisterResponse {
+  """
+  Similar to HTTP status code, represents the status of the mutation
+  """
+  code: Int!
+
+  """
+  Indicates whether the mutation was successful
+  """
+  success: Boolean!
+
+  """
+  Human-readable message for the UI
+  """
+  message: String!
+
+  """
+  new user instance after success register or in other case null
+  """
+  user: User
+}
+
+input LocalSignInInput {
+  password: String!
+  username: String!
+}
+
+input RegisterInput {
+  username: String!
+  email: String!
+  password: String!
+  confirmPassword: String!
+}
