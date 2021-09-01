@@ -21,7 +21,7 @@
     "@apollo/client": "^3.4.10",
     "autoprefixer": "^10.3.3",
     "dayjs": "^1.10.6",
-    "firebase": "^9.0.0",
+    "firebase": "8.7.1",
     "formik": "^2.2.9",
     "graphql": "^15.5.1",
     "next": "11.1.0",

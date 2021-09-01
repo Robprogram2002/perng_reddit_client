@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import LoginForm from '@components/forms/LoginForm';
 import ButtonIcon from '@components/UI/Buttons/ButtonIcon';
 import TextLink from '@components/UI/Links/TextLink';
@@ -8,6 +8,100 @@ import Head from 'next/head';
 import { BiAccessibility } from 'react-icons/bi';
 import ResetUsernameForm from '@components/forms/ResetUsernameForm';
 import ResetPasswordForm from '@components/forms/ResetPasswordForm';
+import { auth, githubProvider, googleProvider } from 'utils/firebase';
+import { gql, useMutation } from '@apollo/client';
+import { useRouter } from 'next/router';
+import { authFunctContext } from '@context/AuthContext';
+
+const AUTH0_LOGIN = gql`
+  mutation FirebaseLogin($firebaseLoginToken: String!) {
+    firebaseLogin(token: $firebaseLoginToken) {
+      code
+      message
+      success
+      user {
+        avatarUrl
+        bannerUrl
+        email
+        username
+      }
+    }
+  }
+`;
+
+export const FirebaseAuth = () => {
+  const router = useRouter();
+  const { login } = useContext(authFunctContext);
+
+  const [mutate, { loading }] = useMutation(AUTH0_LOGIN, {
+    onCompleted: ({ firebaseLogin }) => {
+      if (firebaseLogin.success) {
+        login(firebaseLogin.user!);
+        router.push('/');
+      }
+    },
+    onError: (error) => {
+      console.log(error.message);
+    },
+  });
+
+  const googleLogin = async () => {
+    auth
+      .signInWithPopup(googleProvider)
+      .then(async (result) => {
+        const { user } = result;
+        if (!user) {
+          throw new Error('something went wrong with firebase');
+        }
+        const authResult = await user.getIdTokenResult();
+        const { token } = authResult;
+        mutate({ variables: { firebaseLoginToken: token } });
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        const errorCode = error.code;
+        console.log(errorMessage, errorCode);
+      });
+  };
+
+  const githubLogin = async () => {
+    auth
+      .signInWithPopup(githubProvider)
+      .then(async (result) => {
+        const { user } = result;
+        // console.log(user);
+
+        if (!user) {
+          throw new Error('something went wrong with firebase');
+        }
+        const authResult = await user.getIdTokenResult();
+        const { token } = authResult;
+        mutate({ variables: { firebaseLoginToken: token } });
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        const errorCode = error.code;
+        console.log(errorMessage, errorCode);
+      });
+  };
+
+  return (
+    <>
+      <ButtonIcon
+        component={<BiAccessibility size={30} />}
+        clickHandler={googleLogin}
+      >
+        {loading ? 'Loading...' : 'Login With Google'}
+      </ButtonIcon>
+      <ButtonIcon
+        component={<BiAccessibility size={30} />}
+        clickHandler={githubLogin}
+      >
+        Login With github
+      </ButtonIcon>
+    </>
+  );
+};
 
 // eslint-disable-next-line no-unused-vars
 const Login = ({ setPage }: { setPage: (prop: string) => void }) => {
@@ -20,13 +114,7 @@ const Login = ({ setPage }: { setPage: (prop: string) => void }) => {
       <AuhtFormHead />
 
       <div className="w-70">
-        <ButtonIcon component={<BiAccessibility size={30} />}>
-          Login With Google
-        </ButtonIcon>
-        <ButtonIcon component={<BiAccessibility size={30} />}>
-          Login With github
-        </ButtonIcon>
-
+        <FirebaseAuth />
         <FormDivider />
         <LoginForm />
 

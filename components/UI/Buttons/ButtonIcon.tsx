@@ -1,7 +1,12 @@
 import { FC, ReactNode } from 'react';
 
-const ButtonIcon: FC<{ component: ReactNode }> = ({ children, component }) => (
+const ButtonIcon: FC<{ component: ReactNode; clickHandler: () => void }> = ({
+  children,
+  component,
+  clickHandler,
+}) => (
   <button
+    onClick={clickHandler}
     type="button"
     className="grid grid-cols-5 w-full outline-none  border border-blue-600 rounded  my-4 hover:bg-blue-500 group"
   >

@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import RegisterForm from '@components/forms/RegisterForm';
-import ButtonIcon from '@components/UI/Buttons/ButtonIcon';
 import TextLink from '@components/UI/Links/TextLink';
 import AuhtFormHead from '@components/UI/Other/AuhtFormHead';
 import FormDivider from '@components/UI/Other/FormDivider';
 import Head from 'next/head';
-import { BiAccessibility } from 'react-icons/bi';
 import BackButton from '@components/UI/Buttons/BackButton';
+import { FirebaseAuth } from './login';
 
 const RegisterPage = () => {
   const [phase, setPhase] = useState(1);
@@ -29,12 +28,7 @@ const RegisterPage = () => {
           <div className="w-70">
             {phase === 1 ? (
               <>
-                <ButtonIcon component={<BiAccessibility size={30} />}>
-                  Login With Google
-                </ButtonIcon>
-                <ButtonIcon component={<BiAccessibility size={30} />}>
-                  Login With github
-                </ButtonIcon>
+                <FirebaseAuth />
                 <FormDivider />
               </>
             ) : (
