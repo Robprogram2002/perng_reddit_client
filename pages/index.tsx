@@ -5,7 +5,7 @@ import { useContext } from 'react';
 
 const Home: NextPage = () => {
   const userData = useContext(authContext);
-  console.log(userData);
+
   return (
     <div>
       <Head>
@@ -15,7 +15,6 @@ const Home: NextPage = () => {
       </Head>
 
       <main>
-        <h1>Hello world!!</h1>
         {userData.authenticated && <pre>{JSON.stringify(userData)}</pre>}
       </main>
     </div>

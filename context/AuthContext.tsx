@@ -29,7 +29,7 @@ const initialState: IAuthContext = {
   email: '',
   avatarUrl: '',
   bannerUrl: '',
-  authenticated: false,
+  authenticated: true,
 };
 
 const initialStateFunctions: IAuthContextFunctions = {

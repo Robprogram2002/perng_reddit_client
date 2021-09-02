@@ -5,6 +5,8 @@ import { useRouter } from 'next/router';
 import { ApolloProvider } from '@apollo/client';
 import AuthProvider from '@context/AuthContext';
 import HeadMenu from '@components/layout/navigation/HeadMenu';
+import AppContextProvider from '@context/AppContext';
+import SideBarMenu from '@components/layout/navigation/SideBarMenu';
 import client from '../utils/apollo_client';
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -15,8 +17,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ApolloProvider client={client}>
       <AuthProvider>
-        {!isAuthRoute && <HeadMenu />}
-        <Component {...pageProps} />
+        <AppContextProvider>
+          {!isAuthRoute && <HeadMenu />}
+          <SideBarMenu />
+          <Component {...pageProps} />
+        </AppContextProvider>
       </AuthProvider>
     </ApolloProvider>
   );

@@ -13,6 +13,7 @@ import { BsChatDots } from 'react-icons/bs';
 import Icon from '@components/UI/Buttons/Icon';
 import { authContext } from '@context/AuthContext';
 import { useContext } from 'react';
+import UserActionsDropdDown from '@components/UI/DropDown/UserActionsDropdDown';
 
 const Menu = () => {
   const router = useRouter();
@@ -72,13 +73,7 @@ const AuthMenu = () => (
       </div>
       <h2 className="text-lg font-bold px-2 ">Reddit</h2>
     </div>
-    <div className="border border-gray-200 flex justify-between items-center px-2 rounded w-1/5 mx-3 cursor-pointer">
-      <div className="flex items-center">
-        <AiFillHome size={20} />
-        <span className="px-1">Home</span>
-      </div>
-      <MdKeyboardArrowDown size={22} />
-    </div>
+    <UserActionsDropdDown />
     <div className="w-3/12">
       <div className="flex border border-gray-200 rounded bg-gray-100 h-full hover:border-blue-400 focus-within:border-blue-400 ">
         <div className="flex px-2 items-center justify-center">
@@ -92,12 +87,15 @@ const AuthMenu = () => (
       </div>
     </div>
     <div className="flex items-center px-2">
-      <Icon component={<FiTrendingUp size={22} />} />
-      <Icon component={<IoMdStats size={22} />} />
-      <Icon component={<IoMdVideocam size={22} />} />
-      <Icon component={<BsChatDots size={22} />} />
-      <Icon component={<IoMdNotificationsOutline size={22} />} />
-      <Icon component={<AiOutlinePlus size={22} />} />
+      <Icon component={<FiTrendingUp size={22} />} clickHandler={() => {}} />
+      <Icon component={<IoMdStats size={22} />} clickHandler={() => {}} />
+      <Icon component={<IoMdVideocam size={22} />} clickHandler={() => {}} />
+      <Icon component={<BsChatDots size={22} />} clickHandler={() => {}} />
+      <Icon
+        component={<IoMdNotificationsOutline size={22} />}
+        clickHandler={() => {}}
+      />
+      <Icon component={<AiOutlinePlus size={22} />} clickHandler={() => {}} />
     </div>
     <div
       className="border border-transparent flex justify-between items-center px-2 rounded 
