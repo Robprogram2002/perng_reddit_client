@@ -43,7 +43,7 @@ module.exports = {
   },
   variants: {
     extend: {
-      backgroundColor: ['disabled'],
+      backgroundColor: ['disabled', 'checked'],
       borderColor: ['disabled', 'focus-within'],
       opacity: ['disabled'],
       cursor: ['disabled'],

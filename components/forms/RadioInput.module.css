@@ -1,0 +1,139 @@
+/* The ContainerRadio */
+.ContainerRadio {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-bottom: 12px;
+  padding-left: 26px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.ContainerRadio input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.ContainerRadio .Checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  border: 1px solid rgb(153, 152, 152);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* On mouse-over, add a grey background color */
+.ContainerRadio:hover input ~ .Checkmark {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.ContainerRadio input:checked ~ .Checkmark {
+  background-color: #2196f3;
+  border-color: transparent;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.ContainerRadio .Checkmark:after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.ContainerRadio input:checked ~ .Checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.ContainerRadio .Checkmark:after {
+  top: 4px;
+  left: 4px;
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  background: white;
+}
+
+.ContainerRadio strong {
+  margin: 0px 6px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* ************************************  Check Box  */
+
+/* The container */
+.ContainerBox {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-left: 26px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.ContainerBox input {
+  position: absolute;
+  opacity: 0;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.ContainerBox .Checkmark {
+  position: absolute;
+  top: 1;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  border: 1px solid rgb(153, 152, 152);
+  cursor: pointer;
+}
+
+/* On mouse-over, add a grey background color */
+.ContainerBox:hover input ~ .Checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.ContainerBox input:checked ~ .Checkmark {
+  background-color: #2196f3;
+  border-color: transparent;
+}
+
+/* Create the Checkmark/indicator (hidden when not checked) */
+.ContainerBox .Checkmark:after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+
+/* Show the Checkmark when checked */
+.ContainerBox input:checked ~ .Checkmark:after {
+  display: block;
+}
+
+/* Style the Checkmark/indicator */
+.ContainerBox .Checkmark:after {
+  left: 7px;
+  top: 4px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}

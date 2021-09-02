@@ -7,6 +7,7 @@ import AuthProvider from '@context/AuthContext';
 import HeadMenu from '@components/layout/navigation/HeadMenu';
 import AppContextProvider from '@context/AppContext';
 import SideBarMenu from '@components/layout/navigation/SideBarMenu';
+import CreateCommunityForm from '@components/forms/CreateCommunityForm';
 import client from '../utils/apollo_client';
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -20,6 +21,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <AppContextProvider>
           {!isAuthRoute && <HeadMenu />}
           <SideBarMenu />
+          <CreateCommunityForm />
           <Component {...pageProps} />
         </AppContextProvider>
       </AuthProvider>

@@ -2,8 +2,9 @@
 import { createContext, FC, useReducer } from 'react';
 
 interface IAppContext {
-  state: { openSideBar: boolean };
+  state: { openSideBar: boolean; openModal: boolean };
   toggleSideBar: (prop: boolean) => void;
+  toggleModal: (prop: boolean) => void;
 }
 
 interface IContextAction {
@@ -12,8 +13,9 @@ interface IContextAction {
 }
 
 const initialState: IAppContext = {
-  state: { openSideBar: false },
+  state: { openSideBar: false, openModal: false },
   toggleSideBar: () => {},
+  toggleModal: () => {},
 };
 
 export const appContext = createContext(initialState);
@@ -27,6 +29,12 @@ const appContextReducer = (
       return {
         ...state,
         openSideBar: action.payload as boolean,
+      };
+
+    case 'MODAL_TOGGLE':
+      return {
+        ...state,
+        openModal: action.payload as boolean,
       };
 
     default:
@@ -46,8 +54,16 @@ const AppContextProvider: FC = ({ children }) => {
       payload: status,
     });
 
+  const toggleModal = (status: boolean) =>
+    dispatch({
+      type: 'MODAL_TOGGLE',
+      payload: status,
+    });
+
   return (
-    <appContext.Provider value={{ state: authState, toggleSideBar }}>
+    <appContext.Provider
+      value={{ state: authState, toggleSideBar, toggleModal }}
+    >
       {children}
     </appContext.Provider>
   );

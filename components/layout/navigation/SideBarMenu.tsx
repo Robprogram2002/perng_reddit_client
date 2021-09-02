@@ -13,12 +13,16 @@ import { AiFillHome, AiOutlinePlus } from 'react-icons/ai';
 import { FiSettings, FiTrendingUp } from 'react-icons/fi';
 import { ImCoinDollar } from 'react-icons/im';
 
-const SideMenuItem: FC<{ star?: boolean; icon: ReactNode }> = ({
-  star = false,
-  children,
-  icon,
-}) => (
-  <div className="py-2 px-1 cursor-pointer hover:bg-gray-100">
+const SideMenuItem: FC<{
+  star?: boolean;
+  icon: ReactNode;
+  clickHandler?: () => void;
+}> = ({ star = false, children, icon, clickHandler }) => (
+  <button
+    type="button"
+    className="py-2 px-1 outline-none border-none hover:bg-gray-100 w-full"
+    onClick={clickHandler}
+  >
     <div className="flex items-center justify-between">
       <div className="flex items-center">
         {icon}
@@ -26,7 +30,7 @@ const SideMenuItem: FC<{ star?: boolean; icon: ReactNode }> = ({
       </div>
       {star && <BsStar size={22} />}
     </div>
-  </div>
+  </button>
 );
 
 const Heading = ({ text }: { text: string }) => (
@@ -36,12 +40,13 @@ const Heading = ({ text }: { text: string }) => (
 const SideBarMenu = () => {
   const {
     toggleSideBar,
+    toggleModal,
     state: { openSideBar },
   } = useContext(appContext);
 
   return (
     <menu
-      className={`fixed bg-white h-screen w-72 z-50 border-t border-r py-4 px-5 m-0 overflow-y-auto ${
+      className={`fixed bg-white h-screen w-72 z-40 border-t border-r py-4 px-5 m-0 overflow-y-auto ${
         openSideBar ? 'block' : 'hidden'
       }`}
     >
@@ -79,7 +84,10 @@ const SideBarMenu = () => {
         r/perosnalCommunity
       </SideMenuItem>
       <Heading text="my communities" />
-      <SideMenuItem icon={<AiOutlinePlus size={22} />}>
+      <SideMenuItem
+        icon={<AiOutlinePlus size={22} />}
+        clickHandler={() => toggleModal(true)}
+      >
         Create Community
       </SideMenuItem>
       <SideMenuItem icon={<FaRegUserCircle size={22} />} star>

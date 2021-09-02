@@ -7,7 +7,7 @@ const MainButton: FC<{
   <button
     type="button"
     onClick={clickHandler}
-    className={`w-full py-1.5  text-base font-bold  
+    className={`px-4 py-1.5 mx-1 text-base font-bold  
      border rounded-2xl ${
        filled
          ? 'text-white bg-blue-500 hover:bg-blue-600'
