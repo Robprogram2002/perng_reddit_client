@@ -41,7 +41,7 @@ class MyDocument extends Document {
             crossOrigin="anonymous"
           />
         </Head>
-        <body className="font-body bg-gray-blue">
+        <body className="font-body bg-gray-blue overflow-x-hidden ">
           <Main />
           <NextScript />
         </body>

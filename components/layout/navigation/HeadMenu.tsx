@@ -20,17 +20,17 @@ const Menu = () => {
 
   return (
     <div className="py-2 px-3 bg-white flex">
-      <div className="w-1/12 flex items-center">
+      <div className="w-2/12 flex items-center">
         <div className="bg-red-600 rounded-full p-2 text-white">
           <FaRedditAlien size={22} />
         </div>
         <h2 className="text-lg font-bold px-2 ">Reddit</h2>
       </div>
-      <div className="w-7/12 flex justify-center">
+      <div className="w-8/12 flex justify-center">
         <div className="w-4/5">
           <div className="flex border border-gray-300 bg-gray-100 h-full hover:border-blue-400 focus-within:border-blue-400 ">
-            <div className="w-1/12 flex items-center justify-center">
-              <FiSearch size={22} className="text-gray-500" />
+            <div className="w-1/12 mx-2 flex items-center justify-center">
+              <FiSearch size={22} className="text-gray-500 " />
             </div>
             <input
               type="text"
@@ -40,26 +40,18 @@ const Menu = () => {
           </div>
         </div>
       </div>
-      <div className="w-4/12 flex">
-        <div className="w-1/3 mx-1">
-          <MainButton filled={false} clickHandler={() => router.push('/login')}>
-            Login
-          </MainButton>
-        </div>
-        <div className="w-1/3 mx-1 ">
-          <MainButton clickHandler={() => router.push('/register')}>
-            Register
-          </MainButton>
-        </div>
-        <div className="w-3/12 px-4">
-          <div
-            className="border border-gray-200 rounded cursor-pointer flex items-center justify-center
+      <MainButton filled={false} clickHandler={() => router.push('/login')}>
+        Login
+      </MainButton>
+      <MainButton clickHandler={() => router.push('/register')}>
+        Register
+      </MainButton>
+      <div
+        className="border px-3 py-2 border-gray-200 rounded cursor-pointer flex items-center justify-center
       h-full hover:border-gray-300 "
-          >
-            <AiOutlineUser size={22} />
-            <MdKeyboardArrowDown size={22} />
-          </div>
-        </div>
+      >
+        <AiOutlineUser size={22} />
+        <MdKeyboardArrowDown size={22} />
       </div>
     </div>
   );

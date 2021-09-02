@@ -15,7 +15,9 @@ const Home: NextPage = () => {
       </Head>
 
       <main>
-        {userData.authenticated && <pre>{JSON.stringify(userData)}</pre>}
+        {userData.authenticated && (
+          <pre>{JSON.stringify(userData, undefined, 3)}</pre>
+        )}
       </main>
     </div>
   );
