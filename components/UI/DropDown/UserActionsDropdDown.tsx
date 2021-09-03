@@ -15,7 +15,7 @@ const UserActionsDropdDown = () => {
 
   return (
     <div
-      className={`flex border border-transparent justify-between items-center px-2 rounded w-1/5 mx-3  ${
+      className={`flex border border-transparent justify-between items-center px-2 text-gray-600 rounded w-1/5 mx-3  ${
         !openSideBar && ' border-gray-200 cursor-pointer'
       } `}
       onClick={clickHandler}

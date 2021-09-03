@@ -19,6 +19,7 @@ const CREATESUB_MUTATION = gql`
       success
       message
       sub {
+        name
         username
         type
         adultContent
