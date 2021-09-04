@@ -5,15 +5,8 @@ import { FiLink } from 'react-icons/fi';
 import { ImEye } from 'react-icons/im';
 import { IoMdPodium } from 'react-icons/io';
 
-const SubDescription = ({
-  baseColor,
-  highlightColor,
-}: {
-  baseColor: string;
-  highlightColor: string;
-}) => (
+const SubDescription = () => (
   <SubWidget
-    baseColor={baseColor}
     title="About Community"
     aside={
       <div className="flex items-center text-xs cursor-pointer hover:bg-gray-600 hover:bg-opacity-50 p-1 rounded">
@@ -22,7 +15,7 @@ const SubDescription = ({
       </div>
     }
   >
-    <ShadowButton color={highlightColor}>Add description</ShadowButton>
+    <ShadowButton>Add description</ShadowButton>
     <div className="grid grid-cols-2 my-3">
       <div className="col-span-1 flex flex-col items-center">
         <h3 className="font-semibold text-lg">1, 452, 123</h3>
@@ -49,10 +42,10 @@ const SubDescription = ({
         Adding community topics allow people to find your community. Add a
         primary topic and sub topics to be discovered more easily.
       </small>
-      <ShadowButton color={highlightColor}>Add Topics</ShadowButton>
+      <ShadowButton>Add Topics</ShadowButton>
     </div>
     <div className="w-full border-t border-b py-3">
-      <DynamicButton color={highlightColor}>Create Post</DynamicButton>
+      <DynamicButton>Create Post</DynamicButton>
     </div>
   </SubWidget>
 );

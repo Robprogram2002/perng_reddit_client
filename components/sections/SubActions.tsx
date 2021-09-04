@@ -10,7 +10,7 @@ const SubActions = () => (
       <div className="col-span-1 flex justify-center">
         <div
           className="flex justify-center items-center rounded-full 
-                bg-blue-400 w-12 h-12 my-3 text-white hover:bg-blue-600"
+                bg-blue-300 w-12 h-12 my-3 text-white hover:bg-blue-500"
         >
           <AiOutlinePlus size={30} />
         </div>
@@ -22,7 +22,7 @@ const SubActions = () => (
           making your first post
         </span>
 
-        <MainButton clickHandler={() => {}} alpha="400">
+        <MainButton clickHandler={() => {}} alpha="300">
           Make Your First Post
         </MainButton>
       </div>
@@ -31,7 +31,7 @@ const SubActions = () => (
       <div className="col-span-1 flex justify-center">
         <div
           className="flex justify-center items-center rounded-full 
-                bg-green-500 w-12 h-12 my-3 text-white hover:bg-green-600"
+                bg-green-400 w-12 h-12 my-3 text-white hover:bg-green-500"
         >
           <FaRedditAlien size={30} />
         </div>
@@ -43,7 +43,7 @@ const SubActions = () => (
           making your first post
         </span>
 
-        <MainButton clickHandler={() => {}} color="green">
+        <MainButton clickHandler={() => {}} color="green" alpha="400">
           Learn More
         </MainButton>
       </div>

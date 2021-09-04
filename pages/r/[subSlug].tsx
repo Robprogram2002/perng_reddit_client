@@ -13,6 +13,7 @@ import { useRouter } from 'next/router';
 import StylesSideBar from '@components/layout/navigation/StylesSideBar';
 import { useContext } from 'react';
 import { authContext } from '@context/AuthContext';
+import SubThemeProvider, { subThemeContext } from '@context/SubThemeContext';
 
 const SUB_QUERY = gql`
   query ($subSubName: String!) {
@@ -42,61 +43,68 @@ const SUB_QUERY = gql`
   }
 `;
 
-const Content = ({ data }: { data: any }) => (
-  <>
-    <SubHeader
-      baseColor={data.settings.baseColor}
-      highlightColor={data.settings.highlightColor}
-    />
-    <div className="w-full flex py-5 justify-center">
-      <div className="w-6/12">
-        <FlatCreatePost />
-        <FeedMenu highlightColor={data.settings.highlightColor} />
-        <SubActions />
-        <Card className="my-4">
-          <h1>asndsjak</h1>
-        </Card>
-      </div>
-      <div className="w-4" />
-      <div className="w-4/12 ">
-        <SubDescription
-          baseColor={data.settings.baseColor}
-          highlightColor={data.settings.highlightColor}
-        />
-        <div className="h-4" />
-        <SubCustomize
-          baseColor={data.settings.baseColor}
-          highlightColor={data.settings.highlightColor}
-        />
-        <div className="h-4" />
+const Content = () => {
+  const {
+    theme: { bodyBackground },
+  } = useContext(subThemeContext);
 
-        <Card>
-          <h1>asndsjak</h1>
-        </Card>
-        <div className="h-4" />
+  return (
+    <>
+      <SubHeader />
+      <div
+        className="w-full flex py-5 justify-center"
+        style={{ backgroundColor: bodyBackground }}
+      >
+        <div className="w-7/12">
+          <FlatCreatePost />
+          <FeedMenu />
+          <SubActions />
+          <Card className="my-4">
+            <h1>asndsjak</h1>
+          </Card>
+        </div>
+        <div className="w-6" />
+        <div className="w-4/12 ">
+          <SubDescription />
+          <div className="h-4" />
+          <SubCustomize />
+          <div className="h-4" />
 
-        <Card>
-          <h1>asndsjak</h1>
-        </Card>
+          <Card>
+            <h1>asndsjak</h1>
+          </Card>
+          <div className="h-4" />
+
+          <Card>
+            <h1>asndsjak</h1>
+          </Card>
+        </div>
       </div>
-    </div>
-  </>
-);
+    </>
+  );
+};
 
 const SubPage = ({ data, error }: { data: any; error: any }) => {
   const { username } = useContext(authContext);
   const router = useRouter();
-  const { style } = router.query;
-  console.log(data);
+  const { styling } = router.query;
 
   return (
     <QueryResult data={data} loading={false} error={error}>
-      <div className="w-full grid grid-cols-5">
-        {style && data.username === username && <StylesSideBar />}
-        <div className={style ? 'col-span-4' : 'col-span-5'}>
-          <Content data={data} />
+      <SubThemeProvider initialTheme={data.settings}>
+        <div className="w-full grid grid-cols-4">
+          {styling && data.username === username && <StylesSideBar />}
+          <div
+            className={
+              styling && data.username === username
+                ? 'col-span-3'
+                : 'col-span-4'
+            }
+          >
+            <Content />
+          </div>
         </div>
-      </div>
+      </SubThemeProvider>
     </QueryResult>
   );
 };
