@@ -18,6 +18,24 @@ const Home: NextPage = () => {
         {userData.authenticated && (
           <pre>{JSON.stringify(userData, undefined, 3)}</pre>
         )}
+        {userData.authenticated && (
+          <pre>{JSON.stringify(userData, undefined, 3)}</pre>
+        )}
+        {userData.authenticated && (
+          <pre>{JSON.stringify(userData, undefined, 3)}</pre>
+        )}
+        {userData.authenticated && (
+          <pre>{JSON.stringify(userData, undefined, 3)}</pre>
+        )}{' '}
+        {userData.authenticated && (
+          <pre>{JSON.stringify(userData, undefined, 3)}</pre>
+        )}
+        {userData.authenticated && (
+          <pre>{JSON.stringify(userData, undefined, 3)}</pre>
+        )}
+        {userData.authenticated && (
+          <pre>{JSON.stringify(userData, undefined, 3)}</pre>
+        )}
       </main>
     </div>
   );

@@ -4,14 +4,13 @@ import { FC } from 'react';
  * Query Results conditionnally renders Apollo useQuery hooks states:
  * loading, error or its children when data is ready
  */
-const QueryResult: FC<{ loading: boolean; data: any; error: any }> = ({
-  loading,
-  error,
-  data,
-  children,
-}) => {
+const QueryResult: FC<{
+  loading: boolean;
+  data: any;
+  error: string | undefined;
+}> = ({ loading, error, data, children }) => {
   if (error) {
-    return <p>ERROR: {error.message}</p>;
+    return <p>ERROR: {error}</p>;
   }
 
   if (loading) {

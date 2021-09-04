@@ -4,9 +4,17 @@ type Props = {
   component: ReactNode;
   clickHandler: () => void;
   text?: string;
+  color?: string;
+  active?: boolean;
 };
 
-const Icon = ({ component, clickHandler, text }: Props) => (
+const Icon = ({
+  component,
+  clickHandler,
+  text,
+  color,
+  active = false,
+}: Props) => (
   <button
     type="button"
     onClick={clickHandler}
@@ -14,6 +22,7 @@ const Icon = ({ component, clickHandler, text }: Props) => (
     hover:bg-gray-200 outline-none border-none ${
       text ? 'rounded-2xl px-3' : 'rounded'
     }`}
+    style={color && active ? { color } : {}}
   >
     {component}
     {text && <span className="ml-2 text-base font-semibold"> {text} </span>}
@@ -22,6 +31,8 @@ const Icon = ({ component, clickHandler, text }: Props) => (
 
 Icon.defaultProps = {
   text: '',
+  color: undefined,
+  active: false,
 };
 
 export default Icon;

@@ -46,7 +46,7 @@ const SideBarMenu = () => {
 
   return (
     <menu
-      className={`fixed bg-white h-screen w-72 z-40 border-t border-r py-4 px-5 m-0 overflow-y-auto ${
+      className={`sidebar fixed top-14 left-0 bg-white w-72 z-40 border-t border-r py-4 px-5 m-0 overflow-y-auto ${
         openSideBar ? 'block' : 'hidden'
       }`}
     >

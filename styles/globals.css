@@ -31,3 +31,7 @@
     @apply transform translate-y-1 scale-75 text-blue-500;
   }
 }
+
+.sidebar {
+  height: calc(100vh - 50px) !important;
+}
