@@ -22,6 +22,7 @@ const SUB_QUERY = gql`
       message
       success
       sub {
+        id
         bannerUrl
         profileUrl
         description
@@ -31,6 +32,7 @@ const SUB_QUERY = gql`
         type
         title
         settings {
+          id
           bannerSize
           baseColor
           bodyBackground
@@ -44,16 +46,20 @@ const SUB_QUERY = gql`
 `;
 
 const Content = () => {
-  const {
-    theme: { bodyBackground },
-  } = useContext(subThemeContext);
+  const { theme } = useContext(subThemeContext);
+  const isImage = theme.bodyBackground.includes('data:image');
 
   return (
     <>
       <SubHeader />
       <div
         className="w-full flex py-5 justify-center"
-        style={{ backgroundColor: bodyBackground }}
+        // style={{ backgroundColor: theme.bodyBackground }}
+        style={
+          isImage
+            ? { backgroundImage: `url('${theme.bodyBackground}')` }
+            : { backgroundColor: theme.bodyBackground }
+        }
       >
         <div className="w-7/12">
           <FlatCreatePost />
@@ -88,10 +94,11 @@ const SubPage = ({ data, error }: { data: any; error: any }) => {
   const { username } = useContext(authContext);
   const router = useRouter();
   const { styling } = router.query;
+  const { __typename, id, ...theme } = data.settings;
 
   return (
     <QueryResult data={data} loading={false} error={error}>
-      <SubThemeProvider initialTheme={data.settings}>
+      <SubThemeProvider initialTheme={theme}>
         <div className="w-full grid grid-cols-4">
           {styling && data.username === username && <StylesSideBar />}
           <div
