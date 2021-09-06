@@ -1,7 +1,7 @@
 import Card from '@components/UI/Cards/Card';
-import { gql } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 import QueryResult from '@components/HOC/QueryResult';
-import client from 'utils/apollo_client';
+// import client from 'utils/apollo_client';
 import { GetServerSidePropsContext } from 'next';
 import SubHeader from '@components/sections/SubHeader';
 import FlatCreatePost from '@components/forms/FlatCreatePost';
@@ -14,9 +14,10 @@ import StylesSideBar from '@components/layout/navigation/StylesSideBar';
 import { useContext } from 'react';
 import { authContext } from '@context/AuthContext';
 import SubThemeProvider, { subThemeContext } from '@context/SubThemeContext';
+import initializeApollo from 'utils/apollo_client';
 
 const SUB_QUERY = gql`
-  query ($subSubName: String!) {
+  query FetchSub($subSubName: String!) {
     Sub(subName: $subSubName) {
       code
       message
@@ -90,20 +91,30 @@ const Content = () => {
   );
 };
 
-const SubPage = ({ data, error }: { data: any; error: any }) => {
+const SubPage = () => {
   const { username } = useContext(authContext);
   const router = useRouter();
-  const { styling } = router.query;
-  const { __typename, id, ...theme } = data.settings;
+  const { styling, subSlug } = router.query;
+  const {
+    loading,
+    data: { Sub },
+    error,
+  } = useQuery(SUB_QUERY, {
+    variables: { subSubName: subSlug || '' },
+  });
+
+  console.log(Sub);
 
   return (
-    <QueryResult data={data} loading={false} error={error}>
-      <SubThemeProvider initialTheme={theme}>
+    <QueryResult data={Sub} loading={loading} error={error}>
+      <SubThemeProvider subSettings={Sub.sub.settings || null}>
         <div className="w-full grid grid-cols-4">
-          {styling && data.username === username && <StylesSideBar />}
+          {styling && Sub.sub.username === username && (
+            <StylesSideBar settingsId="asjdjbsa" typeName="kasdks" />
+          )}
           <div
             className={
-              styling && data.username === username
+              styling && Sub.sub.username === username
                 ? 'col-span-3'
                 : 'col-span-4'
             }
@@ -120,7 +131,19 @@ export async function getServerSideProps({
   params,
 }: GetServerSidePropsContext) {
   try {
-    const { data, error } = await client.query({
+    // const { data, error } = await client.query({
+    //   query: SUB_QUERY,
+    //   variables: {
+    //     subSubName: params?.subSlug || '',
+    //   },
+    // });
+
+    // Here, we acquire an instance of Apollo Client, fire the queries off, and then extract the cache
+    // which contains the result for these queries. We then pass the result as props, which is to be
+    // used by the page/_app.js to create an updated Apollo Client instance to be used by the pages,
+    const apolloClient = initializeApollo();
+
+    const { data, error } = await apolloClient.query({
       query: SUB_QUERY,
       variables: {
         subSubName: params?.subSlug || '',
@@ -132,7 +155,7 @@ export async function getServerSideProps({
 
     return {
       props: {
-        data: data.Sub.sub,
+        initialApolloState: apolloClient.cache.extract(),
       },
     };
   } catch (error: any) {

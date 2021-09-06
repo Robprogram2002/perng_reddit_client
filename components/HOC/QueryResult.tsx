@@ -1,3 +1,4 @@
+import { ApolloError } from '@apollo/client';
 import { FC } from 'react';
 
 /**
@@ -7,10 +8,10 @@ import { FC } from 'react';
 const QueryResult: FC<{
   loading: boolean;
   data: any;
-  error: string | undefined;
+  error: ApolloError | undefined;
 }> = ({ loading, error, data, children }) => {
   if (error) {
-    return <p>ERROR: {error}</p>;
+    return <p>ERROR: {error.message}</p>;
   }
 
   if (loading) {

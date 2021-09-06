@@ -6,6 +6,7 @@ import { gql, useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
 import Resizer from 'react-image-file-resizer';
 import { BsCloudUpload } from 'react-icons/bs';
+// import client from 'utils/apollo_client';
 import ChangeThemeColor from './fields/ChangeThemeColor';
 
 const UPDATE_THEME = gql`
@@ -30,7 +31,13 @@ const UPDATE_THEME = gql`
   }
 `;
 
-const ColorThemeForm = () => {
+const ColorThemeForm = ({
+  settingsId,
+  typeName,
+}: {
+  settingsId: string;
+  typeName: string;
+}) => {
   const { changeBaseColor, changeBodyBackground, changeHighlightColor, theme } =
     useContext(subThemeContext);
   const router = useRouter();
@@ -83,6 +90,22 @@ const ColorThemeForm = () => {
       console.log(err);
     }
   };
+
+  // const sub = client.readFragment({
+  //   id: `${typeName}:${settingsId}`,
+  //   fragment: gql`
+  //     fragment MySettings on SubSettings {
+  //       baseColor
+  //       id
+  //       highlightColor
+  //       bodyBackground
+  //     }
+  //   `,
+  // });
+
+  // const result = client.cache.extract(true);
+  // console.log(result);
+  // console.log(sub);
 
   return (
     <>

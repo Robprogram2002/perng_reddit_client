@@ -9,7 +9,13 @@ import { useRouter } from 'next/router';
 import { subThemeContext } from '@context/SubThemeContext';
 import StylesMenu from './StylesMenu';
 
-const StylesSideBar = () => {
+const StylesSideBar = ({
+  settingsId,
+  typeName,
+}: {
+  settingsId: string;
+  typeName: string;
+}) => {
   const { resetTheme } = useContext(subThemeContext);
   const [section, setSection] = useState(Sections.Main);
   const router = useRouter();
@@ -18,7 +24,9 @@ const StylesSideBar = () => {
 
   const menuSections = {
     [Sections.Main]: <StylesMenu changeSection={changeSection} />,
-    [Sections.Theme]: <ColorThemeForm />,
+    [Sections.Theme]: (
+      <ColorThemeForm settingsId={settingsId} typeName={typeName} />
+    ),
     [Sections.Profile]: <h1>Profile</h1>,
     [Sections.Banner]: <h1>Banner</h1>,
     [Sections.Menu]: <h1>Menu</h1>,

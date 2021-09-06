@@ -73,10 +73,11 @@ const appContextReducer = (
   }
 };
 
-const SubThemeProvider: FC<{ initialTheme: SubTheme }> = ({
+const SubThemeProvider: FC<{ subSettings: any }> = ({
   children,
-  initialTheme,
+  subSettings,
 }) => {
+  const { id, __typename, ...initialTheme } = subSettings;
   const [subThemeState, dispatch] = useReducer(appContextReducer, initialTheme);
 
   const setTheme = (theme: SubTheme) =>
