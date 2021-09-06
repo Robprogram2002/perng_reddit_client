@@ -17,111 +17,116 @@ import SubThemeProvider, { subThemeContext } from '@context/SubThemeContext';
 import initializeApollo from 'utils/apollo_client';
 
 const SUB_QUERY = gql`
-  query FetchSub($subSubName: String!) {
+  query fetchSub($subSubName: String!) {
     Sub(subName: $subSubName) {
       code
       message
       success
       sub {
         id
-        bannerUrl
-        profileUrl
         description
         name
         username
         createdAt
         type
-        title
         settings {
           id
           bannerSize
           baseColor
-          bodyBackground
+          title
+          banner {
+            publicId
+            url
+          }
+          profile {
+            publicId
+            url
+          }
+          bodyBackground {
+            type
+            value
+          }
           highlightColor
           postTitleColor
-          postBackground
+          postBackground {
+            type
+            value
+          }
         }
       }
     }
   }
 `;
 
-const Content = () => {
+const Content = ({ data }: { data: any }) => {
+  const { username } = useContext(authContext);
   const { theme } = useContext(subThemeContext);
-  const isImage = theme.bodyBackground.includes('data:image');
+  const router = useRouter();
+  const { styling } = router.query;
+  const { sub } = data.Sub;
+
+  const isImage = theme.bodyBackground.type === 'image';
 
   return (
     <>
-      <SubHeader />
-      <div
-        className="w-full flex py-5 justify-center"
-        // style={{ backgroundColor: theme.bodyBackground }}
-        style={
-          isImage
-            ? { backgroundImage: `url('${theme.bodyBackground}')` }
-            : { backgroundColor: theme.bodyBackground }
-        }
-      >
-        <div className="w-7/12">
-          <FlatCreatePost />
-          <FeedMenu />
-          <SubActions />
-          <Card className="my-4">
-            <h1>asndsjak</h1>
-          </Card>
-        </div>
-        <div className="w-6" />
-        <div className="w-4/12 ">
-          <SubDescription />
-          <div className="h-4" />
-          <SubCustomize />
-          <div className="h-4" />
+      <div className="w-full grid grid-cols-4">
+        {styling && sub.username === username && <StylesSideBar />}
+        <div
+          className={
+            styling && sub.username === username ? 'col-span-3' : 'col-span-4'
+          }
+        >
+          <SubHeader />
+          <div
+            className="w-full flex py-5 justify-center"
+            style={
+              isImage
+                ? { backgroundImage: `url('${theme.bodyBackground.value}')` }
+                : { backgroundColor: theme.bodyBackground.value }
+            }
+          >
+            <div className="w-7/12">
+              <FlatCreatePost />
+              <FeedMenu />
+              <SubActions />
+              <Card className="my-4">
+                <h1>asndsjak</h1>
+              </Card>
+            </div>
+            <div className="w-6" />
+            <div className="w-4/12 ">
+              <SubDescription />
+              <div className="h-4" />
+              <SubCustomize />
+              <div className="h-4" />
 
-          <Card>
-            <h1>asndsjak</h1>
-          </Card>
-          <div className="h-4" />
+              <Card>
+                <h1>asndsjak</h1>
+              </Card>
+              <div className="h-4" />
 
-          <Card>
-            <h1>asndsjak</h1>
-          </Card>
+              <Card>
+                <h1>asndsjak</h1>
+              </Card>
+            </div>
+          </div>
         </div>
       </div>
     </>
   );
 };
 
-const SubPage = () => {
-  const { username } = useContext(authContext);
+const SubPage = ({ SSError }: { SSError: string | undefined }) => {
   const router = useRouter();
-  const { styling, subSlug } = router.query;
-  const {
-    loading,
-    data: { Sub },
-    error,
-  } = useQuery(SUB_QUERY, {
+  const { subSlug } = router.query;
+  const { loading, data, error } = useQuery(SUB_QUERY, {
     variables: { subSubName: subSlug || '' },
   });
 
-  console.log(Sub);
-
   return (
-    <QueryResult data={Sub} loading={loading} error={error}>
-      <SubThemeProvider subSettings={Sub.sub.settings || null}>
-        <div className="w-full grid grid-cols-4">
-          {styling && Sub.sub.username === username && (
-            <StylesSideBar settingsId="asjdjbsa" typeName="kasdks" />
-          )}
-          <div
-            className={
-              styling && Sub.sub.username === username
-                ? 'col-span-3'
-                : 'col-span-4'
-            }
-          >
-            <Content />
-          </div>
-        </div>
+    <QueryResult data={data} loading={loading} error={SSError ?? error}>
+      <SubThemeProvider subResponse={data}>
+        <Content data={data} />
       </SubThemeProvider>
     </QueryResult>
   );
@@ -131,16 +136,6 @@ export async function getServerSideProps({
   params,
 }: GetServerSidePropsContext) {
   try {
-    // const { data, error } = await client.query({
-    //   query: SUB_QUERY,
-    //   variables: {
-    //     subSubName: params?.subSlug || '',
-    //   },
-    // });
-
-    // Here, we acquire an instance of Apollo Client, fire the queries off, and then extract the cache
-    // which contains the result for these queries. We then pass the result as props, which is to be
-    // used by the page/_app.js to create an updated Apollo Client instance to be used by the pages,
     const apolloClient = initializeApollo();
 
     const { data, error } = await apolloClient.query({
@@ -152,7 +147,6 @@ export async function getServerSideProps({
 
     if (error) throw new Error(error.message);
     if (data.Sub.success !== true) throw new Error(data.Sub.message);
-
     return {
       props: {
         initialApolloState: apolloClient.cache.extract(),
@@ -161,7 +155,7 @@ export async function getServerSideProps({
   } catch (error: any) {
     return {
       props: {
-        error: error.message,
+        SSError: error.message,
       },
     };
   }

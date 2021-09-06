@@ -8,10 +8,10 @@ import { FC } from 'react';
 const QueryResult: FC<{
   loading: boolean;
   data: any;
-  error: ApolloError | undefined;
+  error: ApolloError | undefined | string;
 }> = ({ loading, error, data, children }) => {
   if (error) {
-    return <p>ERROR: {error.message}</p>;
+    return <p>ERROR: {typeof error === 'string' ? error : error.message}</p>;
   }
 
   if (loading) {

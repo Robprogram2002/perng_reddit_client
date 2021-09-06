@@ -7,15 +7,12 @@ import ColorThemeForm from '@components/forms/ColorThemeForm';
 import Sections from 'types/CustomizeSections';
 import { useRouter } from 'next/router';
 import { subThemeContext } from '@context/SubThemeContext';
+import SubProfileForm from '@components/forms/SubProfileForm';
+import SubBannerForm from '@components/forms/SubBannerForm';
+import SubPostsThemeForm from '@components/forms/SubPostsThemeForm';
 import StylesMenu from './StylesMenu';
 
-const StylesSideBar = ({
-  settingsId,
-  typeName,
-}: {
-  settingsId: string;
-  typeName: string;
-}) => {
+const StylesSideBar = () => {
   const { resetTheme } = useContext(subThemeContext);
   const [section, setSection] = useState(Sections.Main);
   const router = useRouter();
@@ -24,13 +21,11 @@ const StylesSideBar = ({
 
   const menuSections = {
     [Sections.Main]: <StylesMenu changeSection={changeSection} />,
-    [Sections.Theme]: (
-      <ColorThemeForm settingsId={settingsId} typeName={typeName} />
-    ),
-    [Sections.Profile]: <h1>Profile</h1>,
-    [Sections.Banner]: <h1>Banner</h1>,
+    [Sections.Theme]: <ColorThemeForm changeSection={changeSection} />,
+    [Sections.Profile]: <SubProfileForm changeSection={changeSection} />,
+    [Sections.Banner]: <SubBannerForm changeSection={changeSection} />,
     [Sections.Menu]: <h1>Menu</h1>,
-    [Sections.Posts]: <h1>Posts</h1>,
+    [Sections.Posts]: <SubPostsThemeForm changeSection={changeSection} />,
   };
 
   return (
